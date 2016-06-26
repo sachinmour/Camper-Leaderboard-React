@@ -34,13 +34,13 @@ class Main extends React.Component {
     render() {
         var listHTML = this.state.data.map(function(item, i) {
             return (
-                <tr key={item.username}>
+                <tr key={item.username} className={(i+1)%2===0 ? "even" : "odd"}>
 	            	<td>
 	            		{i+1}
 	            	</td>
 	            	<td>
-	            		<img src={item.img} alt={item.username} />
-	            		<p>{item.username}</p>
+	            		<img src={item.img} alt={item.username}/>
+	            		<a href={ "https://www.freecodecamp.com/" + item.username.toLowerCase() }>{item.username}</a>
 	            	</td>
 	        		<td>
 	        			{item.recent}
@@ -54,15 +54,19 @@ class Main extends React.Component {
         var _this = this;
         return (
             <div id="content">
-                <p>Leaderboard</p>
+                <p id="heading">Leaderboard</p>
                 <table>
-                	<tr>
-                		<td>#</td>
-                		<td>Camper</td>
-                		<td className={this.state.list === "last30" ? "active" : "notactive"} onClick={(e) => _this.getLast30()}>Points in last 30 days</td>
-                		<td className={this.state.list === "alltime" ? "active" : "notactive"} onClick={(e) => _this.getAllTime()}>All time points</td>
-                	</tr>
-                	{listHTML}
+                    <thead>
+                    	<tr className="even">
+                    		<td>#</td>
+                    		<td>Camper</td>
+                    		<td className={this.state.list === "last30" ? "active" : "notactive"} onClick={(e) => _this.getLast30()}>Points in last 30 days</td>
+                    		<td className={this.state.list === "alltime" ? "active" : "notactive"} onClick={(e) => _this.getAllTime()}>All time points</td>
+                    	</tr>
+                    </thead>
+                    <tbody>
+                	   {listHTML}
+                    </tbody>
                 </table>
             </div>
         );
